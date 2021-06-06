@@ -5,7 +5,8 @@ class Player:
     def __init__(self, up_key, down_key, x_position):
         self.up_key = up_key
         self.down_key = down_key
-        self.rect = [x_position, 0.5, 0.05, 0.2]
+        # self.rect = [x_position, 0.5, 0.05, 0.2]
+        self.rect = [x_position, 0.5, 0.5, 0.2]
         self.speed = 0.001
 
     def update(self):

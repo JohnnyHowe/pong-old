@@ -4,7 +4,6 @@ class _Window:
     def __init__(self):
         self.size = (500, 500)
         self.surface = pygame.display.set_mode(self.size)
-        pygame.time.Clock().tick(60)    # too lazy to do delta time
         pygame.init()
 
     def update_display(self):
@@ -12,6 +11,9 @@ class _Window:
 
     def draw_rect(self, rect, color):
         pygame.draw.rect(self.surface, color, self.converted_rect(self.scaled_rect(rect)))
+
+    def draw_circle(self, position, radius, color):
+        pygame.draw.circle(self.surface, color, self.scaled_position(position), radius * min(self.size))
 
     def converted_rect(self, rect):
         """ Given a rect where the position is the center, return a copy such that the position

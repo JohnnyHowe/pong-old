@@ -1,6 +1,7 @@
 import pygame
 from window import Window
 from player import Player
+from ball import Ball
 
 def event_loop():
     events = pygame.event.get()
@@ -9,14 +10,21 @@ def event_loop():
             quit()
 
 def main():
-    player1 = Player(pygame.K_w, pygame.K_s, 0.1)
-    player2 = Player(pygame.K_o, pygame.K_l, 0.9)
+    player1 = Player(pygame.K_w, pygame.K_s, 0.05)
+    player2 = Player(pygame.K_o, pygame.K_l, 0.95)
+    ball = Ball()
+    
+    c = pygame.time.Clock()    
 
     while True:
-        Window.surface.fill((100, 100, 100))
+        c.tick(100)
         event_loop()
+        Window.surface.fill((100, 100, 100))
         player1.update()
         player2.update()
+        ball.update()
+        ball.bounce_off_player(player1.rect)
+        ball.bounce_off_player(player2.rect)
         Window.update_display()
 
 if __name__ == "__main__":
