@@ -12,7 +12,7 @@ def event_loop():
 def main():
     player1 = Player(pygame.K_w, pygame.K_s, 0.05)
     player2 = Player(pygame.K_o, pygame.K_l, 0.95)
-    ball = Ball()
+    ball = Ball([player1.rect[0] + 0.05, player1.rect[1]])
     
     c = pygame.time.Clock()    
 

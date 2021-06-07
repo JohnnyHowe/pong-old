@@ -3,11 +3,11 @@ from window import Window
 
 
 class Ball:
-    def __init__(self):
-        self.position = [0.5, 0.5]
-        self.radius = 0.025
-        self.speed = 0.001
-        self.direction = 315  # angle from up (clockwise)
+    def __init__(self, initial_position):
+        self.position = initial_position 
+        self.radius = 0.02
+        self.speed = 0.005
+        self.direction = 45  # angle from up (clockwise)
 
     def update(self):
         self.move()
@@ -66,7 +66,8 @@ class Ball:
                 self.position[1] - self.radius <= rect[1] + rect[3] / 2)
 
     def bounce(self, normal_angle):
-        return 0
+        da = mod(normal_angle, 180) - mod(self.direction, 180)
+        self.direction = mod((self.direction - 180) + 2 * da, 360)
 
 def normalise(vec):
     d = math.sqrt(vec[0] ** 2+ vec[1] ** 2)
