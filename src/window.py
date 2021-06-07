@@ -32,8 +32,6 @@ class _Window:
         return (position[0] * self.size[0], position[1] * self.size[1])
 
 
-
-
 # Give a refernce to a already instantiated object
 # Now acts like a singleton
 Window = _Window()

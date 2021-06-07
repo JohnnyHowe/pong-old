@@ -7,7 +7,8 @@ class Ball:
         self.position = initial_position 
         self.radius = 0.02
         self.speed = 0.005
-        self.direction = 45  # angle from up (clockwise)
+        self.direction = 90  # angle from up (clockwise)
+        self.max_paddle_angle = 20
 
     def update(self):
         self.move()
@@ -30,19 +31,13 @@ class Ball:
             self.bounce(180)
 
     def bounce_off_player(self, rect):
-        """ If the ball is touching the player rect, bounce """
         if self.is_touching(rect):
-            self.get_collision_normal(rect)
-            # self.bounce(self.get_collision_normal(rect))
-
-    def bounce_off_player(self, rect):
-        if self.is_touching(rect):
-            self.rect_collision(rect)
+            self.player_collision(rect)
 
     def is_in_bounds(self):
         return 0 < self.position[0] < 1
 
-    def rect_collision(self, rect):
+    def player_collision(self, rect):
         """ Get the collision normal angle. """
         # Collision res
         near_x = max(rect[0] - rect[2] / 2, min(self.position[0], rect[0] + rect[2] / 2))
@@ -56,9 +51,10 @@ class Ball:
         self.position[1] += pen_vec[1]
 
         # Bounce
+        angle_offset = (2 * (rect[1] - self.position[1]) / rect[3]) * self.max_paddle_angle * math.copysign(1, self.position[0] - rect[0])
         dot = dist_vec_normalised[1]
         angle = math.degrees(math.acos(dot)) + 180
-        self.bounce(angle)
+        self.bounce(angle - angle_offset)
 
     def is_touching(self, rect):
         """ Is the ball touching rect? """
