@@ -4,13 +4,6 @@ from player import Player
 from ball import Ball
 
 
-def event_loop():
-    events = pygame.event.get()
-    for event in events:
-        if (event.type == pygame.QUIT):
-            quit()
-
-
 class Game:
     def __init__(self):
         self.reset()
@@ -22,6 +15,13 @@ class Game:
             Player(pygame.K_o, pygame.K_l, 0.95),
         ]
         self.ball = Ball([self.players[0].rect[0] + 0.05, self.players[0].rect[1]])
+
+    def event_loop(self):
+        events = pygame.event.get()
+        for event in events:
+            if (event.type == pygame.QUIT):
+                quit()
+        self.system_events = events
 
     def display(self):
         Window.surface.fill((100, 100, 100))
@@ -41,9 +41,10 @@ class Game:
     def run(self):
         while True:
             self.clock.tick(100)
-            event_loop()
+            self.event_loop()
             self.physics_step()
             self.display()
+
 
 if __name__ == "__main__":
     Game().run()
