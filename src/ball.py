@@ -9,10 +9,26 @@ class Ball:
         self.speed = 0.005
         self.direction = 90  # angle from up (clockwise)
         self.max_paddle_angle = 20
+        self.max_angle_from_horizontal = 45
 
     def update(self):
         self.move()
         self.bounce_off_walls()
+        self.cap_angle()
+
+    def cap_angle(self):
+        if 0 <= self.direction <= 90 - self.max_angle_from_horizontal:
+            # top right
+            self.direction = 90 - self.max_angle_from_horizontal
+        elif 90 + self.max_angle_from_horizontal <= self.direction <= 180:
+            # bottom right
+            self.direction = 90 + self.max_angle_from_horizontal
+        elif 180 <= self.direction <= 270 - self.max_angle_from_horizontal:
+            # bottom left
+            self.direction = 270 - self.max_angle_from_horizontal
+        elif 270 + self.max_angle_from_horizontal <= self.direction <= 360:
+            # top left
+            self.direction = 270 + self.max_angle_from_horizontal
 
     def show(self):
         Window.draw_circle(self.position, self.radius, (255, 255, 255))
