@@ -12,7 +12,6 @@ class Ball:
     def update(self):
         self.move()
         self.bounce_off_walls()
-        self.show()
 
     def show(self):
         Window.draw_circle(self.position, self.radius, (255, 255, 255))
@@ -39,6 +38,9 @@ class Ball:
     def bounce_off_player(self, rect):
         if self.is_touching(rect):
             self.rect_collision(rect)
+
+    def is_in_bounds(self):
+        return 0 < self.position[0] < 1
 
     def rect_collision(self, rect):
         """ Get the collision normal angle. """

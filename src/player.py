@@ -5,14 +5,12 @@ class Player:
     def __init__(self, up_key, down_key, x_position):
         self.up_key = up_key
         self.down_key = down_key
-        # self.rect = [x_position, 0.5, 0.05, 0.2]
         self.rect = [x_position, 0.5, 0.02, 0.25]
-        self.speed = 0.01
+        self.speed = 0.005
 
     def update(self):
         self.move()
         self.limit_movement()
-        self.show()
 
     def move(self):
         self.rect[1] += self.get_key_dir() * self.speed
