@@ -1,4 +1,5 @@
 import math
+import random
 from window import Window
 
 
@@ -10,6 +11,7 @@ class Ball:
         self.direction = 90  # angle from up (clockwise)
         self.max_paddle_angle = 20
         self.max_angle_from_horizontal = 45
+        self.max_random_angle = 5
 
     def update(self):
         self.move()
@@ -70,7 +72,8 @@ class Ball:
         angle_offset = (2 * (rect[1] - self.position[1]) / rect[3]) * self.max_paddle_angle * math.copysign(1, self.position[0] - rect[0])
         dot = dist_vec_normalised[1]
         angle = math.degrees(math.acos(dot)) + 180
-        self.bounce(angle - angle_offset)
+        ac = (2 * random.random() - 1) * self.max_random_angle
+        self.bounce(angle - angle_offset + ac)
 
     def is_touching(self, rect):
         """ Is the ball touching rect? """
