@@ -1,5 +1,5 @@
 import pygame
-from pygame.constants import K_SPACE
+from pygame.constants import K_SPACE, SRCALPHA
 from window import Window
 from player import Player
 from ball import Ball
@@ -13,14 +13,18 @@ class Game:
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.next_start_player = 1
-        self.font = pygame.font.SysFont("Calibri", 80)
+        self.font = pygame.font.Font("src/Pixeled.ttf", 80)
+        self.controls_font = pygame.font.Font("src/Pixeled.ttf", 20)
         self.text_margin = [40, 20]
-        self.text_color = (200, 200, 200)
         self.players = [
             Player(pygame.K_w, pygame.K_s, 0.05),
             Player(pygame.K_o, pygame.K_l, 0.95),
         ]
         self.reset()
+        self.color = (130, 180, 255)
+        self.controls_text_color = (210, 235, 255)
+        self.text_color = (190, 220, 255)
+        self.bar_color = (150, 190, 255)
 
     def reset(self):
         self.players[0].reset()
@@ -36,8 +40,35 @@ class Game:
                 quit()
         self.system_events = events
 
+    def display_start_controls(self):
+        t = self.controls_font.render("Press Space to Start", True, self.controls_text_color)
+        rect = t.get_rect()
+        self.display_player_controls()
+        Window.surface.blit(t, ((Window.size[0] - rect.width) / 2, (Window.size[1] - rect.height) / 2))
+
+    def display_player_controls(self):
+        # Player1
+        w = self.controls_font.render("s", True, self.controls_text_color)
+        s = self.controls_font.render("w", True, self.controls_text_color)
+        wtext_rect = w.get_rect()
+        stext_rect = s.get_rect()
+        player1_rect = Window.scaled_rect(self.players[0].rect)
+        Window.surface.blit(w, (player1_rect[0] - wtext_rect.width / 2, player1_rect[1] + player1_rect[3] / 2))
+        Window.surface.blit(s, (player1_rect[0] - stext_rect.width / 2, player1_rect[1] - player1_rect[3] / 2 - stext_rect.height))
+        # Player1
+        w = self.controls_font.render("l", True, self.controls_text_color)
+        s = self.controls_font.render("o", True, self.controls_text_color)
+        wtext_rect = w.get_rect()
+        stext_rect = s.get_rect()
+        player1_rect = Window.scaled_rect(self.players[1].rect)
+        Window.surface.blit(w, (player1_rect[0] - wtext_rect.width / 2, player1_rect[1] + player1_rect[3] / 2))
+        Window.surface.blit(s, (player1_rect[0] - stext_rect.width / 2, player1_rect[1] - player1_rect[3] / 2 - stext_rect.height))
+
     def display(self):
-        Window.surface.fill((100, 100, 100))
+        Window.surface.fill(self.color)
+        Window.draw_rect((0.5, 0.5, 0.02, 1), self.bar_color)
+        if (self.state == GameState.pregame):
+            self.display_start_controls()
 
         # player1 score
         player1_score_surf = self.font.render(str(self.players[0].score), True, self.text_color)

@@ -37,7 +37,8 @@ class Ball:
             self.direction = 270 + self.max_angle_from_horizontal
 
     def show(self):
-        Window.draw_circle(self.position, self.radius, (255, 255, 255))
+        # Window.draw_circle(self.position, self.radius, (255, 255, 255))
+        Window.draw_rect(self.position + [self.radius * 2, ] * 2, (255, 255, 255))
 
     def move(self):
         self.position[0] += math.sin(math.radians(self.direction)) * self.speed
