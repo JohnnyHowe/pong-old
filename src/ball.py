@@ -18,6 +18,10 @@ class Ball:
         self.bounce_off_walls()
         self.cap_angle()
 
+    def attach_to_player(self, rect, side):
+        self.position[0] = rect[0] + (rect[2] / 2 + self.radius + 0.01) * side
+        self.position[1] = rect[1] 
+
     def cap_angle(self):
         if 0 <= self.direction <= 90 - self.max_angle_from_horizontal:
             # top right
