@@ -6,7 +6,12 @@ class Player:
         self.up_key = up_key
         self.down_key = down_key
         self.rect = [x_position, 0.5, 0.02, 0.25]
+        self.reset()
         self.speed = 0.005
+        self.score = 0
+
+    def reset(self):
+        self.rect[1] = 0.5
 
     def update(self):
         self.move()
