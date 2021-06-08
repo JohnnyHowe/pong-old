@@ -27,8 +27,8 @@ class Game:
         self.bar_color = (150, 190, 255)
 
     def reset(self):
-        self.players[0].reset()
-        self.players[1].reset()
+        # self.players[0].reset()
+        # self.players[1].reset()
         self.ball = Ball([self.players[0].rect[0] + 0.05, self.players[0].rect[1]])
         self.state = GameState.pregame
         self.next_start_player = abs(self.next_start_player - 1)
@@ -44,7 +44,7 @@ class Game:
         t = self.controls_font.render("Press Space to Start", True, self.controls_text_color)
         rect = t.get_rect()
         self.display_player_controls()
-        Window.surface.blit(t, ((Window.size[0] - rect.width) / 2, (Window.size[1] - rect.height) / 2))
+        Window.surface.blit(t, ((Window.size[0] - rect.width) / 2, Window.size[1] - rect.height))
 
     def display_player_controls(self):
         # Player1

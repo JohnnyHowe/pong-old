@@ -7,7 +7,7 @@ class Ball:
     def __init__(self, initial_position):
         self.position = initial_position 
         self.radius = 0.02
-        self.speed = 0.005
+        self.speed = 0.008
         self.direction = 90  # angle from up (clockwise)
         self.max_paddle_angle = 20
         self.max_angle_from_horizontal = 45
